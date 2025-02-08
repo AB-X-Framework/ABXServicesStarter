@@ -12,6 +12,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <deploy>${project.basedir}/deploy</deploy>
     </properties>
 
     <dependencies>
@@ -23,6 +24,8 @@
     </dependencies>
     <build>
         <plugins>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -35,8 +38,26 @@
                         </goals>
                         <configuration>
                             <artifact>org.abx.persistence:persistence:1.0-SNAPSHOT</artifact>
-                            <outputDirectory>${project.basedir}/deploy/persistence</outputDirectory>
-                            <overwrite>true</overwrite>
+                            <outputDirectory>${deploy}/persistence</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>delete-folder</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <delete dir="${deploy}"/>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
