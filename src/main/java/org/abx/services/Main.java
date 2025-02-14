@@ -27,6 +27,7 @@ public class Main {
         ProcessBuilder processBuilder = new ProcessBuilder(
                 javaBin, "-cp", jarPath, mainClass
         ).directory(new File(service.getString("path")));
+        System.out.println(processBuilder.command());
 
         // Redirect output and error streams
         processBuilder.inheritIO();
