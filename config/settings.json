@@ -2,8 +2,21 @@
   "services": [
     {
       "path": "ABXPersistence",
-      "file": "persistence.jar",
-      "class": "org.springframework.boot.loader.launch.JarLauncher"
+      "classpath": ["persistence.jar"],
+      "class": "org.springframework.boot.loader.launch.JarLauncher",
+      "params": [
+        "config",
+        "../settings.json",
+        "ABXPersistence"
+      ]
     }
-  ]
+  ],
+  "config": {
+    "ABXPersistence": {
+      "params": [
+        "--hello=word"
+      ]
+    }
+  }
+
 }
