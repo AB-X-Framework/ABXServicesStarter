@@ -14,7 +14,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <deploy>${project.basedir}/deploy</deploy>
     </properties>
-
+    <repositories>
+        <repository>
+            <id>github-Persistence</id>
+            <url>https://maven.pkg.github.com/AB-X-Framework/ABXPersistence</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.abx.persistence</groupId>
