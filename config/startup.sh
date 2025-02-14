@@ -1,0 +1,1 @@
+/usr/lib/jvm/graalvm-jdk-21.0.5+9.1/bin/java -cp ABXServices.jar org.abx.services.Main
