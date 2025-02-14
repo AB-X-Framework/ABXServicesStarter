@@ -9,19 +9,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Main {
 
 
-    public static void startService(JSONObject service) {
+    public static Process startService(JSONObject service) throws IOException {
         // Get the path to the current Java executable
         String javaHome = System.getProperty("java.home");
         String javaBin = Paths.get(javaHome, "bin", "java").toString();
 
         // Path to the JAR file of the subsequent process
-        JSONArray jsonJarPath =service.getJSONArray("classpath");
+        JSONArray jsonJarPath = service.getJSONArray("classpath");
         StringBuilder jarPath = new StringBuilder();
-        for (int i = 0; i < jsonJarPath.length();++i){
+        for (int i = 0; i < jsonJarPath.length(); ++i) {
             jarPath.append(jsonJarPath.getString(i)).append(File.pathSeparator);
         }
 
@@ -29,13 +30,13 @@ public class Main {
         String mainClass = service.getString("class");
 
         JSONArray params = service.getJSONArray("params");
-        String[] args = new String[4+params.length()];
-        args[0]=javaBin;
-        args[1]="-cp";
-        args[2]=jarPath.toString();
-        args[3]=mainClass;
-        for (int i = 0; i< params.length();++i){
-            args[4+i]=params.getString(i);
+        String[] args = new String[4 + params.length()];
+        args[0] = javaBin;
+        args[1] = "-cp";
+        args[2] = jarPath.toString();
+        args[3] = mainClass;
+        for (int i = 0; i < params.length(); ++i) {
+            args[4 + i] = params.getString(i);
         }
         // Construct the command to launch the process
         ProcessBuilder processBuilder = new ProcessBuilder(args
@@ -43,16 +44,8 @@ public class Main {
         System.out.println(Arrays.toString(args));
         // Redirect output and error streams
         processBuilder.inheritIO();
-        try {
-            // Start the process
-            Process process = processBuilder.start();
+        return processBuilder.start();
 
-            // Wait for the process to finish (optional)
-            int exitCode = process.waitFor();
-            System.out.println("Process exited with code: " + exitCode);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -61,8 +54,12 @@ public class Main {
         JSONObject jsonConfig = new JSONObject(config);
         System.out.println("Starting services ");
         JSONArray jsonServices = jsonConfig.getJSONArray("services");
+        HashSet<Process> processes = new HashSet<>();
         for (int i = 0; i < jsonServices.length(); ++i) {
-            startService(jsonServices.getJSONObject(i));
+            processes.add(startService(jsonServices.getJSONObject(i)));
+        }
+        for (Process p:processes){
+            p.waitFor();
         }
     }
 }
