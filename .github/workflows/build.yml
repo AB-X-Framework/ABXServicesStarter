@@ -46,4 +46,4 @@ jobs:
             # Step 3: Compile and deploy ABX Persistence
       - name: Compile and deploy ABX Persistence
         run: |
-          mvn deploy
+          mvn install
