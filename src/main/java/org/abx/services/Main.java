@@ -1,5 +1,6 @@
 package org.abx.services;
 
+import org.abx.util.StreamUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -46,13 +47,12 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        Properties p = new Properties();
-        p.load(new FileInputStream("settings.properties"));
-
-        JSONArray array = new JSONArray(p.getProperty("services"));
-        System.out.println("Starting services "+array);
-        for (int i = 0; i< array.length();++i){
-            start(array.getJSONObject(i));
+        String config = StreamUtils.readStream(new FileInputStream("settings.json"));
+ JSONObject jsonConfig = new JSONObject(config);
+        System.out.println("Starting services ");
+        JSONArray jsonServices = jsonConfig.getJSONArray("services");
+        for (int i = 0; i< jsonServices.length();++i){
+            start(jsonServices.getJSONObject(i));
         }
     }
 }
