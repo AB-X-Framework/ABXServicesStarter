@@ -82,7 +82,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${deploy}">
+                                <copy todir="${deploy}" overwrite="true">
                                     <fileset dir="${project.basedir}/config">
                                         <include name="**/*"/>
                                     </fileset>
