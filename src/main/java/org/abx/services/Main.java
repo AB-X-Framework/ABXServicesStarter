@@ -49,6 +49,7 @@ public class Main {
         p.load(new FileInputStream("settings.properties"));
 
         JSONArray array = new JSONArray(p.getProperty("services"));
+        System.out.println("Starting services "+array);
         for (int i = 0; i< array.length();++i){
             start(array.getJSONObject(i));
         }

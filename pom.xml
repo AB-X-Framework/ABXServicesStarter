@@ -70,7 +70,7 @@
                         <configuration>
                             <target>
                                 <move file="${project.build.directory}/${project.build.finalName}.jar"
-                                      tofile="${deploy}/ABXServices.jar"/>
+                                      tofile="${deploy}/ABXServices.jar" overwrite="true"/>
                             </target>
                         </configuration>
                     </execution>
@@ -109,7 +109,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <chmod file="${deploy}/build.sh" perm="755"/>
+                                <chmod file="${deploy}/startup.sh" perm="755"/>
                             </target>
                         </configuration>
                     </execution>
