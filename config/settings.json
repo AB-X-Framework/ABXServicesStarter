@@ -9,10 +9,27 @@
         "../settings.json",
         "ABXPersistence"
       ]
+    },
+
+    {
+      "path": "ABXRepository",
+      "classpath": ["repository.jar"],
+      "class": "org.springframework.boot.loader.launch.JarLauncher",
+      "params": [
+        "config",
+        "../settings.json",
+        "ABXRepository"
+      ]
     }
   ],
   "config": {
     "ABXPersistence": {
+      "params": [
+        "--hello=word"
+      ]
+    },
+
+    "ABXRepository": {
       "params": [
         "--hello=word"
       ]

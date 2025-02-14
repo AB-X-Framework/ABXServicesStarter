@@ -23,11 +23,23 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>github-ABXRepository</id>
+            <url>https://maven.pkg.github.com/AB-X-Framework/ABXRepository</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>org.abx.persistence</groupId>
             <artifactId>persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.abx.repository</groupId>
+            <artifactId>repository</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -44,13 +56,24 @@
                 <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>copy-dependency</id>
+                        <id>copy-dependency-persistence</id>
                         <goals>
                             <goal>copy</goal>
                         </goals>
                         <configuration>
                             <artifact>org.abx.persistence:persistence:1.0-SNAPSHOT</artifact>
                             <outputDirectory>${deploy}/ABXPersistence</outputDirectory>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-dependency-repository</id>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifact>org.abx.repository:repository:1.0-SNAPSHOT</artifact>
+                            <outputDirectory>${deploy}/ABXRepository</outputDirectory>
                             <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>

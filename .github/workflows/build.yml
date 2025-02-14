@@ -40,10 +40,11 @@ jobs:
         uses: s4u/maven-settings-action@v2.5.0
         with:
           servers: '[
-            {"id": "github-ABXPersistence","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}
+            {"id": "github-ABXPersistence","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}},
+            {"id": "github-ABXRepository","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}
           ]'
 
             # Step 3: Compile and deploy ABX Persistence
-      - name: Compile and deploy ABX Persistence
+      - name: Compile and deploy ABX Services Starter
         run: |
           mvn install
